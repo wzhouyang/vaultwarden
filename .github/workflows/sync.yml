@@ -1,0 +1,28 @@
+name: SyncCode
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Your Fork
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Sync Tags
+        run: |
+          # 1. 配置原仓库地址
+          git remote add upstream https://github.com/dani-garcia/vaultwarden.git
+          
+          # 2. 获取原仓库的所有 Tags
+          git fetch upstream --tags
+          
+          # 3. 将新 Tags 推送到你的 Fork 仓库 (origin)
+          # --force 确保即使本地有同名标签也会更新（通常用于修复误打的标签）
+          git push origin --tags
+      
