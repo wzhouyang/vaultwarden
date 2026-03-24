@@ -7,6 +7,8 @@ on:
 jobs:
   sync:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write   # 用于推送 Tags
     steps:
       - name: Checkout Your Fork
         uses: actions/checkout@v4
