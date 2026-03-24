@@ -9,12 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write   # 用于推送 Tags
+      actions: write
     steps:
       - name: Checkout Your Fork
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.sync }}
+          token: ${{ secrets.github.token }}
           
       - name: Sync Tags
         run: |
